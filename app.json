@@ -1,15 +1,18 @@
 {
   "expo": {
-    "name": "candy-blocks",
-    "slug": "candy-blocks",
+    "name": "Candyis",
+    "slug": "candyis",
+    "scheme": "candyis",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.candyis.app"
     },
     "android": {
+      "package": "com.candyis.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -20,6 +23,27 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-audio",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Candyis uses your photo library to let you set a profile picture."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#29105B",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "dark": {
+            "backgroundColor": "#29105B"
+          }
+        }
+      ]
+    ]
   }
 }

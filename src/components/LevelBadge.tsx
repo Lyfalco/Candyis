@@ -1,0 +1,99 @@
+import React from 'react';
+import { Text, View } from 'react-native';
+import Svg, { Circle, Defs, Line, LinearGradient, Path, Polygon, RadialGradient, Stop } from 'react-native-svg';
+import { levelBadgeFamily } from '../progression/levels';
+
+const SHIELD_PATH = 'M50 4 L91 19 L91 48 C91 74 72 92 50 97 C28 92 9 74 9 48 L9 19 Z';
+
+function starPoints(cx: number, cy: number, spikes: number, outerR: number, innerR: number): string {
+  const points: string[] = [];
+  const step = Math.PI / spikes;
+  let rot = -Math.PI / 2;
+  for (let i = 0; i < spikes; i++) {
+    points.push(`${cx + Math.cos(rot) * outerR},${cy + Math.sin(rot) * outerR}`);
+    rot += step;
+    points.push(`${cx + Math.cos(rot) * innerR},${cy + Math.sin(rot) * innerR}`);
+    rot += step;
+  }
+  return points.join(' ');
+}
+
+/**
+ * Badge design is procedural rather than a fixed lookup table, so it never
+ * "runs out" of a distinct look no matter how high a player's level climbs —
+ * hue rotates by a fixed, non-repeating-for-a-long-time step per family, and
+ * decoration (rings/rays) escalates with family for a few tiers before
+ * capping out (a level-4000 badge shouldn't need MORE rings than a
+ * level-400 one, just a different hue, or it'd get visually noisy).
+ */
+function paletteForFamily(family: number): { colors: [string, string]; glow: string } {
+  const hue = (family * 47) % 360;
+  return {
+    colors: [`hsl(${hue}, 78%, 62%)`, `hsl(${hue}, 70%, 38%)`],
+    glow: `hsl(${hue}, 90%, 68%)`,
+  };
+}
+
+interface Props {
+  level: number;
+  size?: number;
+}
+
+export function LevelBadge({ level, size = 72 }: Props) {
+  const family = levelBadgeFamily(level);
+  const { colors, glow } = paletteForFamily(family);
+  const gradId = `level-grad-${family}`;
+  const glowId = `level-glow-${family}`;
+  const rings = Math.min(family, 2);
+  const showRays = family >= 1;
+  const rayCount = family >= 3 ? 16 : 8;
+
+  return (
+    <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
+      <Svg width={size} height={size} viewBox="0 0 100 100" style={{ position: 'absolute' }}>
+        <Defs>
+          <LinearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+            <Stop offset="0" stopColor={colors[0]} />
+            <Stop offset="1" stopColor={colors[1]} />
+          </LinearGradient>
+          <RadialGradient id={glowId} cx="50%" cy="45%" r="55%">
+            <Stop offset="0" stopColor={glow} stopOpacity={0.55} />
+            <Stop offset="1" stopColor={glow} stopOpacity={0} />
+          </RadialGradient>
+        </Defs>
+
+        {showRays &&
+          Array.from({ length: rayCount }).map((_, i) => {
+            const angle = (i / rayCount) * Math.PI * 2;
+            const x1 = 50 + Math.cos(angle) * 34;
+            const y1 = 48 + Math.sin(angle) * 34;
+            const x2 = 50 + Math.cos(angle) * 46;
+            const y2 = 48 + Math.sin(angle) * 46;
+            return (
+              <Line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={glow} strokeWidth={3} strokeLinecap="round" opacity={0.85} />
+            );
+          })}
+
+        <Circle cx={50} cy={48} r={46} fill={`url(#${glowId})`} />
+        <Path d={SHIELD_PATH} fill={`url(#${gradId})`} stroke="#00000022" strokeWidth={1.5} />
+
+        {rings >= 1 && <Circle cx={50} cy={46} r={30} fill="none" stroke="#FFFFFF99" strokeWidth={2} />}
+        {rings >= 2 && <Circle cx={50} cy={46} r={24} fill="none" stroke="#FFFFFF66" strokeWidth={1.5} />}
+
+        <Polygon points={starPoints(50, 46, 5, 15, 6.5)} fill="#FFFFFF" opacity={0.25} />
+      </Svg>
+      <Text
+        style={{
+          fontSize: size * 0.24,
+          fontWeight: '800',
+          color: '#FFFFFF',
+          textShadowColor: 'rgba(0,0,0,0.35)',
+          textShadowOffset: { width: 0, height: 1 },
+          textShadowRadius: 2,
+        }}
+      >
+        {level}
+      </Text>
+    </View>
+  );
+}

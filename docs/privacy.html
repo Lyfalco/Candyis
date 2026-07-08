@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — Candyis</title>
+  <meta name="description" content="Candyis privacy policy. We explain what data our app collects, how it uses it, and how it protects it."/>
+  <meta name="theme-color" content="#09090F"/>
+  <link rel="icon" type="image/png" href="./assets/favicon.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#09090F;--surface:#131720;--elevated:#1C2130;--muted:#222838;
+      --amber:#DD7C1F;--amber-dim:rgba(221,124,31,.13);
+      --teal:#2EA891;--teal-dim:rgba(46,168,145,.13);
+      --purple:#797BD1;--purple-dim:rgba(121,123,209,.13);
+      --red:#D45649;
+      --text:rgba(255,255,255,.95);--text2:rgba(255,255,255,.60);--text3:rgba(255,255,255,.35);
+      --sep:rgba(255,255,255,.08);--sep2:rgba(255,255,255,.14);
+      --r:16px;--rl:24px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.70}
+    a{color:var(--amber);text-decoration:none}
+    a:hover{text-decoration:underline}
+    img{display:block;max-width:100%}
+
+    nav{
+      position:sticky;top:0;z-index:100;
+      background:rgba(9,9,15,.85);backdrop-filter:blur(22px) saturate(160%);
+      border-bottom:1px solid var(--sep);
+    }
+    .nav-wrap{
+      max-width:860px;margin:0 auto;padding:0 24px;
+      height:64px;display:flex;align-items:center;justify-content:space-between;
+    }
+    .nav-logo{display:flex;align-items:center;gap:10px}
+    .nav-logo img{width:34px;height:34px;border-radius:9px;object-fit:cover;box-shadow:0 4px 14px rgba(221,124,31,.28)}
+    .nav-logo span{font-size:15px;font-weight:800;letter-spacing:-.2px;color:var(--text)}
+    .nav-back{
+      font-size:13px;font-weight:600;color:var(--text2);
+      display:flex;align-items:center;gap:5px;
+      border:1px solid var(--sep);border-radius:9px;padding:7px 13px;
+      transition:color .2s,border-color .2s;
+    }
+    .nav-back:hover{color:var(--text);border-color:var(--sep2);text-decoration:none}
+
+    .wrap{max-width:860px;margin:0 auto;padding:56px 24px 100px}
+
+    .hero-card{
+      background:var(--surface);border:1px solid var(--sep);border-radius:26px;
+      padding:42px 40px 38px;margin-bottom:48px;position:relative;overflow:hidden;
+    }
+    .hero-card::before{
+      content:'';position:absolute;top:-70px;right:-70px;width:280px;height:280px;border-radius:50%;
+      background:radial-gradient(circle,rgba(221,124,31,.10) 0%,transparent 70%);pointer-events:none;
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      font-size:11px;font-weight:700;letter-spacing:.55px;text-transform:uppercase;
+      padding:5px 13px;border-radius:99px;
+      background:var(--amber-dim);color:var(--amber);border:1px solid rgba(221,124,31,.22);
+      margin-bottom:18px;
+    }
+    .hero-card h1{font-size:clamp(24px,4vw,38px);font-weight:900;letter-spacing:-.5px;margin-bottom:14px}
+    .hero-card .lead{font-size:15px;color:var(--text2);max-width:520px;line-height:1.72}
+    .meta-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px}
+    .meta-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text3);font-weight:500}
+
+    .toc{background:var(--surface);border:1px solid var(--sep);border-radius:18px;padding:24px 28px;margin-bottom:48px}
+    .toc h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:16px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+    .toc-list li{display:flex;align-items:center;gap:10px}
+    .toc-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0}
+    .toc-list a{font-size:14px;font-weight:500;color:var(--text2);transition:color .2s}
+    .toc-list a:hover{color:var(--amber);text-decoration:none}
+
+    .psec{margin-bottom:52px;scroll-margin-top:24px}
+    .psec-hd{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+    .psec-num{
+      width:36px;height:36px;border-radius:10px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;
+      background:var(--amber-dim);color:var(--amber);
+    }
+    .psec-num.t{background:var(--teal-dim);color:var(--teal)}
+    .psec-num.p{background:var(--purple-dim);color:var(--purple)}
+    .psec h2{font-size:21px;font-weight:800;letter-spacing:-.3px;color:var(--text)}
+    .psec p{font-size:15px;color:var(--text2);margin-bottom:14px;line-height:1.78}
+    .psec p:last-child{margin-bottom:0}
+    .psec ul{list-style:none;margin:12px 0;display:flex;flex-direction:column;gap:10px}
+    .psec ul li{
+      display:flex;align-items:flex-start;gap:12px;
+      font-size:15px;color:var(--text2);line-height:1.65;
+    }
+    .psec ul li::before{
+      content:'✓';width:22px;height:22px;border-radius:7px;flex-shrink:0;margin-top:1px;
+      background:var(--teal-dim);color:var(--teal);
+      display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;
+    }
+    .psec ul li.no::before{content:'✕';background:rgba(212,86,73,.12);color:var(--red)}
+    .info-box{
+      background:var(--elevated);border:1px solid var(--sep);
+      border-radius:14px;padding:18px 20px;
+      margin:16px 0;font-size:14px;color:var(--text2);line-height:1.68;
+    }
+    .info-box.amber{background:var(--amber-dim);border-color:rgba(221,124,31,.22);color:rgba(255,255,255,.80)}
+    .info-box strong{color:var(--text);font-weight:700}
+    .divider{height:1px;background:var(--sep);margin:48px 0}
+
+    .cta-card{
+      background:linear-gradient(135deg,rgba(42,22,8,.82),rgba(18,14,28,.82));
+      border:1px solid rgba(221,124,31,.22);border-radius:22px;padding:28px 32px;
+      display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;
+    }
+    .cta-card h3{font-size:18px;font-weight:800;margin-bottom:6px;color:var(--text)}
+    .cta-card p{font-size:14px;color:var(--text2)}
+    .btn-cta{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:14px;font-weight:700;
+      padding:13px 24px;border-radius:12px;
+      background:linear-gradient(135deg,var(--amber),#C55E0A);color:#fff;
+      white-space:nowrap;transition:opacity .2s;
+    }
+    .btn-cta:hover{opacity:.88;text-decoration:none}
+
+    .pfooter{
+      border-top:1px solid var(--sep);padding-top:28px;margin-top:56px;
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+      font-size:13px;color:var(--text3);
+    }
+    .pfooter a{color:var(--text3);transition:color .2s}
+    .pfooter a:hover{color:var(--amber);text-decoration:none}
+
+    @media(max-width:600px){
+      .hero-card{padding:28px 22px}
+      .cta-card{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-wrap">
+    <a href="index.html" class="nav-logo">
+      <img src="./assets/icon.png" alt="Candyis"/>
+      <span>Candyis</span>
+    </a>
+    <a href="index.html" class="nav-back">← Home</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="hero-card">
+    <div class="hero-badge">🔒 Privacy &amp; Security</div>
+    <h1>Privacy Policy</h1>
+    <p class="lead">
+      At Candyis, we take your privacy seriously. This policy explains what data our app collects,
+      how it uses it, and how it protects it.
+    </p>
+    <div class="meta-row">
+      <div class="meta-item">📅 Last updated: July 7, 2026</div>
+      <div class="meta-item">🎮 Web, iOS &amp; Android</div>
+      <div class="meta-item">📧 ozgurcocuk9@gmail.com</div>
+    </div>
+  </div>
+
+  <div class="toc">
+    <h3>Table of Contents</h3>
+    <ul class="toc-list">
+      <li><a href="#s1">1. Data We Collect</a></li>
+      <li><a href="#s2">2. How We Use Your Data</a></li>
+      <li><a href="#s3">3. Data Storage &amp; Security</a></li>
+      <li><a href="#s4">4. Firebase &amp; Third-Party Services</a></li>
+      <li><a href="#s5">5. Advertising &amp; Analytics</a></li>
+      <li><a href="#s6">6. Data Retention &amp; Your Right to Delete</a></li>
+      <li><a href="#s7">7. Children's Privacy</a></li>
+      <li><a href="#s8">8. Your Rights</a></li>
+      <li><a href="#s9">9. Policy Changes</a></li>
+      <li><a href="#s10">10. Contact Us</a></li>
+    </ul>
+  </div>
+
+  <div class="psec" id="s1">
+    <div class="psec-hd"><div class="psec-num">1</div><h2>Data We Collect</h2></div>
+    <p>Candyis only collects the data listed below to function properly. Minimizing personal data collection is a core principle of ours.</p>
+    <p><strong style="color:var(--text)">Account information:</strong></p>
+    <ul>
+      <li>Email address and password, if you sign up with email (passwords are handled by Firebase Authentication and never visible to us in plain text)</li>
+      <li>An anonymous device account, if you play as a guest — no email required</li>
+      <li>Your chosen username / display name</li>
+      <li>A profile photo, only if you choose to upload one</li>
+    </ul>
+    <p><strong style="color:var(--text)">Gameplay data:</strong></p>
+    <ul>
+      <li>Best score, current league/rank, and account level</li>
+      <li>Quest and login-streak progress, unlocked board themes</li>
+      <li>In-progress game state, so you can resume where you left off</li>
+    </ul>
+    <div class="info-box amber">
+      <strong>Note:</strong> Some data (like your saved in-progress game and cached scores) is stored only on your device using local storage and is never transmitted anywhere unless it's the kind of data above that powers the online leaderboard.
+    </div>
+    <p><strong style="color:var(--text)">We do not collect:</strong></p>
+    <ul>
+      <li class="no">Your precise location</li>
+      <li class="no">Your contacts</li>
+      <li class="no">Microphone or camera data</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="psec" id="s2">
+    <div class="psec-hd"><div class="psec-num t">2</div><h2>How We Use Your Data</h2></div>
+    <p>Collected data is used solely for the following purposes:</p>
+    <ul>
+      <li>Creating and securing your account, and signing you in across sessions</li>
+      <li>Saving your best score, progress, and settings so nothing is lost when you close the app</li>
+      <li>Displaying your username, score, and (if set) profile photo on the public leaderboard</li>
+      <li>Running daily/weekly quests, login streaks, and reward systems</li>
+      <li>Responding to support requests you send us</li>
+    </ul>
+    <p>Your data is not sold, shared with third parties for their own purposes, or used for advertising.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="psec" id="s3">
+    <div class="psec-hd"><div class="psec-num p">3</div><h2>Data Storage &amp; Security</h2></div>
+    <p>
+      Your account and gameplay data are stored on Firebase's cloud infrastructure, which may process and
+      store data in the United States or other countries where Firebase operates. Access to your account
+      data is restricted so that only you (authenticated as the account owner) can modify it. No method of
+      electronic storage is 100% secure, but we use industry-standard security rules to protect your
+      information.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="psec" id="s4">
+    <div class="psec-hd"><div class="psec-num">4</div><h2>Firebase &amp; Third-Party Services</h2></div>
+    <p>
+      Candyis is built on <strong style="color:var(--text)">Firebase</strong>, a set of backend services
+      operated by Google LLC, for authentication, database storage, and (where applicable) file storage.
+      Firebase processes data on our behalf under Google's own security and privacy commitments. We do not
+      sell or share your personal information with any other third party.
+    </p>
+    <div class="info-box">
+      You can review Google's own privacy practices at
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="psec" id="s5">
+    <div class="psec-hd"><div class="psec-num t">5</div><h2>Advertising &amp; Analytics</h2></div>
+    <ul>
+      <li class="no">No advertising SDKs</li>
+      <li class="no">No third-party analytics or tracking SDKs</li>
+      <li class="no">No advertising identifiers collected</li>
+    </ul>
+    <p>Candyis does not show ads and does not track you across other apps or websites.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="psec" id="s6">
+    <div class="psec-hd"><div class="psec-num p">6</div><h2>Data Retention &amp; Your Right to Delete</h2></div>
+    <p>
+      We keep your account data for as long as your account exists. You can permanently delete your account
+      and all associated data at any time from <strong style="color:var(--text)">Profile → Delete Account</strong>
+      inside the app. This immediately and permanently removes your leaderboard entry and Firebase account.
+      You may also request deletion by emailing us.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="psec" id="s7">
+    <div class="psec-hd"><div class="psec-num">7</div><h2>Children's Privacy</h2></div>
+    <p>
+      Candyis is not directed at children under the age of 13, and we do not knowingly collect personal
+      information from children under 13. If you believe a child has provided us with personal information,
+      please contact us and we will delete it promptly.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="psec" id="s8">
+    <div class="psec-hd"><div class="psec-num t">8</div><h2>Your Rights</h2></div>
+    <p>
+      Depending on where you live (including under the EU/UK GDPR and the California CCPA/CPRA), you may
+      have the right to access, correct, export, or delete your personal information, and to object to or
+      restrict certain processing. You can exercise most of these rights directly in the app (edit
+      username/photo, delete account) or by emailing us.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="psec" id="s9">
+    <div class="psec-hd"><div class="psec-num p">9</div><h2>Policy Changes</h2></div>
+    <p>
+      We may update this Privacy Policy from time to time. Material changes will be reflected by updating
+      the "Last updated" date at the top of this page. Continued use of Candyis after a change means you
+      accept the updated policy.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="psec" id="s10">
+    <div class="psec-hd"><div class="psec-num">10</div><h2>Contact Us</h2></div>
+    <p>
+      <strong style="color:var(--text)">Email: </strong>
+      <a href="mailto:ozgurcocuk9@gmail.com">ozgurcocuk9@gmail.com</a>
+    </p>
+    <p>We aim to respond within a few business days. You can also use the feedback form on our homepage.</p>
+  </div>
+
+  <div class="cta-card">
+    <div>
+      <h3>Have a question?</h3>
+      <p>Feel free to reach out with any privacy or data security questions.</p>
+    </div>
+    <a href="index.html#feedback" class="btn-cta">✉️ Write to Us</a>
+  </div>
+
+  <div class="pfooter">
+    <span>© 2026 Candyis. All rights reserved.</span>
+    <div style="display:flex;gap:20px">
+      <a href="index.html">Home</a>
+      <a href="index.html#feedback">Contact</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
