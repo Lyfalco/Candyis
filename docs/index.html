@@ -4,11 +4,11 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Candyis — Block &amp; Candy Puzzle Game</title>
-  <meta name="description" content="Candyis is a premium block-placement and candy-matching puzzle hybrid. Clear rows, match colors, chase combos, and climb a real leaderboard — free to play in your browser."/>
+  <meta name="description" content="Candyis is a premium block-placement and candy-matching puzzle hybrid. Clear rows, match colors, chase combos, and climb a real leaderboard — coming soon to Web, iOS &amp; Android."/>
   <meta name="theme-color" content="#09090F"/>
   <link rel="icon" type="image/png" href="./assets/favicon.png"/>
   <meta property="og:title" content="Candyis — Block & Candy Puzzle Game"/>
-  <meta property="og:description" content="Place blocks. Match candy. Chase the leaderboard. Play Candyis free in your browser."/>
+  <meta property="og:description" content="Place blocks. Match candy. Chase the leaderboard. Coming soon to Web, iOS & Android."/>
   <meta property="og:image" content="./assets/icon.png"/>
   <meta property="og:type" content="website"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -132,9 +132,35 @@
       background:linear-gradient(180deg,rgba(255,255,255,.06) 0%,transparent 30%,transparent 70%,rgba(0,0,0,.18) 100%);
     }
     .phone-bar{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:98px;height:26px;border-radius:18px;background:var(--bg);z-index:20}
-    .phone iframe{
-      position:absolute;inset:0;width:100%;height:100%;border:none;background:#FBF7F0;
+    .phone-screen{
+      position:absolute;inset:0;
+      background:linear-gradient(160deg,#FFF3E0 0%,#F4EEFF 100%);
+      padding:56px 16px 18px;display:flex;flex-direction:column;gap:12px;
     }
+    .m-topbar{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800;color:#3A2E52}
+    .m-league,.m-best{background:rgba(255,255,255,.85);border-radius:10px;padding:5px 9px}
+    .m-board{
+      flex:1;background:rgba(255,255,255,.6);border-radius:16px;padding:8px;
+      display:flex;flex-direction:column;gap:5px;justify-content:center;
+    }
+    .m-board-row{display:flex;gap:5px;justify-content:center}
+    .c{
+      width:17%;aspect-ratio:1;border-radius:6px;background:rgba(120,92,200,.10);
+      display:flex;align-items:center;justify-content:center;font-size:11px;
+    }
+    .c.red{background:#FF6B6B}
+    .c.orange{background:#FFA648}
+    .c.yellow{background:#FFCF4D}
+    .c.green{background:#4CD787}
+    .c.blue{background:#4A9DFF}
+    .c.purple{background:#B47CFF}
+    .c.bomb{background:#2B2640}
+    .m-tray{display:flex;gap:8px;justify-content:center}
+    .m-tray-piece{
+      flex:1;max-width:64px;background:rgba(255,255,255,.85);border-radius:10px;
+      padding:8px 6px;display:flex;gap:3px;justify-content:center;align-items:center;
+    }
+    .m-tray-piece .c{width:14px;height:14px;border-radius:4px;font-size:9px}
     .phone-glow{position:absolute;bottom:-45px;left:50%;transform:translateX(-50%);width:170px;height:70px;background:var(--amber);opacity:.14;filter:blur(38px);pointer-events:none}
     .float-pill{
       position:absolute;display:flex;align-items:center;gap:8px;
@@ -294,13 +320,13 @@
 
     <div class="nav-center">
       <a href="#features">Features</a>
-      <a href="#play">Play</a>
+      <a href="#download">Coming Soon</a>
       <a href="#feedback">Report Issue</a>
       <a href="privacy.html">Privacy</a>
     </div>
 
     <div class="nav-right">
-      <a href="#play" class="nav-cta">Play Now</a>
+      <a href="#feedback" class="nav-cta">Get Notified</a>
     </div>
 
     <button class="hamburger" id="ham" aria-label="Menu">
@@ -312,7 +338,7 @@
 <!-- Mobile menu -->
 <div class="mob-menu" id="mobmenu">
   <a href="#features" class="mob-link">Features</a>
-  <a href="#play" class="mob-link">Play</a>
+  <a href="#download" class="mob-link">Coming Soon</a>
   <a href="#feedback" class="mob-link">Report Issue</a>
   <a href="privacy.html" class="mob-link">Privacy Policy</a>
 </div>
@@ -327,7 +353,7 @@
       <div>
         <div class="hero-eyebrow">
           <span class="badge-pill">🍬 Block &amp; Candy Puzzle</span>
-          <span class="badge-pill teal">🌐 Play Free in Browser</span>
+          <span class="badge-pill teal">📱 Coming Soon</span>
         </div>
         <h1 class="hero-title">
           Place Blocks.<br><span class="hl">Match Candy.</span><br>Chase the Leaderboard.
@@ -337,17 +363,44 @@
           match 3+ candy colors like a classic match game, and climb a real competitive leaderboard.
         </p>
         <div class="hero-cta">
-          <a href="#play" class="btn-pri">▶ Play Now — Free</a>
-          <span class="hero-coming">iOS &amp; Android apps coming soon</span>
+          <a href="#feedback" class="btn-pri">✉️ Get Notified at Launch</a>
+          <span class="hero-coming">Coming soon to Web, iOS &amp; Android</span>
         </div>
       </div>
 
-      <!-- Live playable game -->
-      <div class="hero-visual" id="play">
+      <!-- Static preview mockup (no live app/backend embedded here) -->
+      <div class="hero-visual" id="preview">
         <div class="phone-wrap">
           <div class="phone">
             <div class="phone-bar"></div>
-            <iframe src="./play/index.html" title="Play Candyis" allow="autoplay"></iframe>
+            <div class="phone-screen">
+              <div class="m-topbar">
+                <div class="m-league">🛡️ Bronze II</div>
+                <div class="m-best">🏆 980</div>
+              </div>
+              <div class="m-board">
+                <div class="m-board-row">
+                  <span class="c red"></span><span class="c orange"></span><span class="c"></span><span class="c yellow"></span><span class="c"></span>
+                </div>
+                <div class="m-board-row">
+                  <span class="c"></span><span class="c green"></span><span class="c green"></span><span class="c"></span><span class="c blue"></span>
+                </div>
+                <div class="m-board-row">
+                  <span class="c purple"></span><span class="c"></span><span class="c bomb">💣</span><span class="c"></span><span class="c"></span>
+                </div>
+                <div class="m-board-row">
+                  <span class="c"></span><span class="c red"></span><span class="c"></span><span class="c orange"></span><span class="c orange"></span>
+                </div>
+                <div class="m-board-row">
+                  <span class="c blue"></span><span class="c"></span><span class="c purple"></span><span class="c"></span><span class="c yellow"></span>
+                </div>
+              </div>
+              <div class="m-tray">
+                <div class="m-tray-piece"><span class="c red"></span><span class="c red"></span></div>
+                <div class="m-tray-piece"><span class="c green"></span><span class="c yellow"></span><span class="c blue"></span></div>
+                <div class="m-tray-piece"><span class="c bomb">💣</span></div>
+              </div>
+            </div>
           </div>
           <div class="phone-glow"></div>
           <div class="float-pill fp1">
@@ -414,15 +467,15 @@
   </div>
 </section>
 
-<!-- ══ Play everywhere ══════════════════════════════════════ -->
+<!-- ══ Coming soon ══════════════════════════════════════ -->
 <section id="download">
   <div class="wrap dl-inner">
-    <span class="badge-pill purple">🎮 Play Anywhere</span>
-    <h2 class="sec-title" style="margin-top:16px">Free, right now,<br>in your browser</h2>
-    <p class="dl-sub">No download, no account required to start — scroll up and play instantly. Sign up any time to save your score and join the leaderboard.</p>
+    <span class="badge-pill purple">🎮 Coming Soon</span>
+    <h2 class="sec-title" style="margin-top:16px">Launching soon on<br>Web, iOS &amp; Android</h2>
+    <p class="dl-sub">Candyis is in final testing. Leave your email below and we'll let you know the moment it's live — free to play, no ads, no purchases required.</p>
     <div class="dl-btn-wrap">
-      <a href="#play" class="btn-pri">▶ Play Now — Free</a>
-      <span class="platform-note">📱 iOS &amp; Android apps coming soon</span>
+      <a href="#feedback" class="btn-pri">✉️ Get Notified</a>
+      <span class="platform-note">📱 Web, iOS &amp; Android</span>
     </div>
     <div class="dl-note">Free to play — no ads, no purchases required</div>
   </div>
@@ -520,7 +573,7 @@
         <div class="ft-col">
           <h4>Game</h4>
           <a href="#features">Features</a>
-          <a href="#play">Play Now</a>
+          <a href="#download">Coming Soon</a>
         </div>
         <div class="ft-col">
           <h4>Support</h4>
