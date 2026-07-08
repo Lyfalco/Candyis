@@ -113,11 +113,9 @@ function reducer(state: GameState, action: Action): GameState {
       const remainingTray = state.tray.map((p) => (p?.id === action.pieceId ? null : p));
 
       const placementScore = scorePlacement(piece.shape.length);
-      // Bomb Candy's own wildcard match (joining an adjacent same-color run,
-      // see `colorsMatch` in clearing.ts) is evaluated first, on the board as
-      // placed — so a bomb landing next to a same-color cluster gets full
-      // credit for completing it. Its guaranteed area-blast is layered on
-      // top of that result, not in place of it.
+      // Natural row/col/color clears are evaluated first, on the board as
+      // placed; Bomb Candy's guaranteed 3x3 area-blast is layered on top of
+      // that result, not in place of it.
       const naturalClear = evaluateClears(boardAfterPlacement);
       let board = naturalClear ? applyClear(boardAfterPlacement, naturalClear) : boardAfterPlacement;
 

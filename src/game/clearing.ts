@@ -2,12 +2,6 @@ import { Board, BOARD_SIZE, CandyColor, Cell, Position } from './types';
 
 const key = (row: number, col: number): number => row * BOARD_SIZE + col;
 
-/** Bomb Candy is a wildcard: it matches any color for cluster purposes (and any color matches it back). */
-function colorsMatch(a: Cell, b: Cell): boolean {
-  if (a === null || b === null) return false;
-  return a === b || a === 'bomb' || b === 'bomb';
-}
-
 export function getFullRows(board: Board): number[] {
   const rows: number[] = [];
   for (let row = 0; row < BOARD_SIZE; row++) {
@@ -31,54 +25,45 @@ export function getFullCols(board: Board): number[] {
   return cols;
 }
 
-/**
- * Connected (orthogonal) color groups of size >= minSize, as cell-key arrays.
- * Uses union-find rather than a single fixed-color flood fill because Bomb
- * Candy cells are wildcards (`colorsMatch` above) — a bomb transitively joins
- * whatever real-colored group(s) it directly touches, including bridging two
- * *different* colored groups into one clearable group if the bomb sits
- * between them. A fixed-color flood fill can't express that: it would either
- * ignore the bomb (missing the match) or, if picked as the flood's own
- * "target color", incorrectly absorb every non-null cell on the board.
- */
+/** Connected (orthogonal) same-color groups of size >= minSize, as cell-key arrays. */
 export function getColorClusters(board: Board, minSize = 3): number[][] {
-  const cellCount = BOARD_SIZE * BOARD_SIZE;
-  const parent = Array.from({ length: cellCount }, (_, i) => i);
-  const find = (x: number): number => {
-    while (parent[x] !== x) {
-      parent[x] = parent[parent[x]];
-      x = parent[x];
-    }
-    return x;
-  };
-  const union = (a: number, b: number) => {
-    const ra = find(a);
-    const rb = find(b);
-    if (ra !== rb) parent[ra] = rb;
-  };
+  const visited = new Set<number>();
+  const groups: number[][] = [];
 
   for (let row = 0; row < BOARD_SIZE; row++) {
     for (let col = 0; col < BOARD_SIZE; col++) {
-      const cell: Cell = board[row][col];
-      if (cell === null) continue;
-      if (col + 1 < BOARD_SIZE && colorsMatch(cell, board[row][col + 1])) union(key(row, col), key(row, col + 1));
-      if (row + 1 < BOARD_SIZE && colorsMatch(cell, board[row + 1][col])) union(key(row, col), key(row + 1, col));
+      const color: Cell = board[row][col];
+      const startKey = key(row, col);
+      if (color === null || visited.has(startKey)) continue;
+
+      const group: number[] = [];
+      const stack: Position[] = [{ row, col }];
+      visited.add(startKey);
+
+      while (stack.length > 0) {
+        const pos = stack.pop() as Position;
+        group.push(key(pos.row, pos.col));
+
+        const neighbors: Position[] = [
+          { row: pos.row - 1, col: pos.col },
+          { row: pos.row + 1, col: pos.col },
+          { row: pos.row, col: pos.col - 1 },
+          { row: pos.row, col: pos.col + 1 },
+        ];
+        for (const n of neighbors) {
+          if (n.row < 0 || n.row >= BOARD_SIZE || n.col < 0 || n.col >= BOARD_SIZE) continue;
+          const nKey = key(n.row, n.col);
+          if (visited.has(nKey) || board[n.row][n.col] !== color) continue;
+          visited.add(nKey);
+          stack.push(n);
+        }
+      }
+
+      if (group.length >= minSize) groups.push(group);
     }
   }
 
-  const groups = new Map<number, number[]>();
-  for (let row = 0; row < BOARD_SIZE; row++) {
-    for (let col = 0; col < BOARD_SIZE; col++) {
-      if (board[row][col] === null) continue;
-      const k = key(row, col);
-      const root = find(k);
-      const group = groups.get(root);
-      if (group) group.push(k);
-      else groups.set(root, [k]);
-    }
-  }
-
-  return Array.from(groups.values()).filter((group) => group.length >= minSize);
+  return groups;
 }
 
 export interface ClearResult {
@@ -142,23 +127,15 @@ export function applyClear(board: Board, clear: ClearResult): Board {
   return clearCells(board, clear.cellKeys);
 }
 
-export const BOMB_AREA_WIDTH = 4;
-export const BOMB_AREA_HEIGHT = 3;
+export const BOMB_AREA_RADIUS = 1;
 
-/**
- * Cell keys Bomb Candy detonates around its own placement cell — a
- * `BOMB_AREA_WIDTH`x`BOMB_AREA_HEIGHT` window clamped to the board edges,
- * deliberately excluding `origin` itself: the bomb's own cell survives the
- * blast and settles as a permanent wildcard tile (see `colorsMatch`) rather
- * than clearing itself.
- */
+/** Cell keys Bomb Candy detonates around its own placement cell — a plain 3x3 window clamped to the board edges, including `origin` itself. */
 export function computeBombArea(origin: Position): number[] {
   const cells: number[] = [];
-  for (let r = origin.row - 1; r <= origin.row + BOMB_AREA_HEIGHT - 2; r++) {
+  for (let r = origin.row - BOMB_AREA_RADIUS; r <= origin.row + BOMB_AREA_RADIUS; r++) {
     if (r < 0 || r >= BOARD_SIZE) continue;
-    for (let c = origin.col - 1; c <= origin.col + BOMB_AREA_WIDTH - 2; c++) {
+    for (let c = origin.col - BOMB_AREA_RADIUS; c <= origin.col + BOMB_AREA_RADIUS; c++) {
       if (c < 0 || c >= BOARD_SIZE) continue;
-      if (r === origin.row && c === origin.col) continue;
       cells.push(key(r, c));
     }
   }

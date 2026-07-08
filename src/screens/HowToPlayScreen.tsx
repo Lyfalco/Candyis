@@ -46,7 +46,7 @@ const POWER_UPS: GuideItem[] = [
   {
     icon: '💣',
     title: 'Bomb Candy',
-    body: 'Reach a 6-in-a-row streak and a Bomb Candy appears in your tray. Place it anywhere: it blasts a 4×3 area clear and settles as a wildcard that counts as every color for future matches.',
+    body: 'Reach a 6-in-a-row streak and a Bomb Candy appears in your tray. Place it anywhere: it blasts a 3×3 area clear around it, no matter the colors.',
   },
 ];
 

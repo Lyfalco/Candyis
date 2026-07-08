@@ -35,7 +35,7 @@ export function generateTraySlots(random: RandomFn, size = TRAY_SIZE): TraySlots
   return generateTray(random, size);
 }
 
-/** A single wildcard "Bomb Candy" piece — only ever created via the dedicated bomb-earn path, never by `generatePiece`'s normal RNG. */
+/** A single "Bomb Candy" piece that detonates a 3x3 area — only ever created via the dedicated bomb-earn path, never by `generatePiece`'s normal RNG. */
 export function makeBombPiece(): Piece {
   return {
     id: nextId(),

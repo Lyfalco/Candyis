@@ -1,10 +1,12 @@
 /**
- * 'bomb' is a special wildcard cell (Bomb Candy) — deliberately excluded from
+ * 'bomb' marks a special cell (Bomb Candy) — deliberately excluded from
  * `CANDY_COLORS` so the normal per-cell RNG (`generatePiece`) can never roll
  * it by chance; it's only ever created by the dedicated bomb-spawn path in
  * `useGameEngine`. Kept as a `CandyColor` member (not a separate `Cell` union
- * case) so it flows through every existing color → hex / cluster-match /
- * render path for free instead of needing a special case in each one.
+ * case) so it flows through every existing color → hex / render path for
+ * free instead of needing a special case in each one. It has no relationship
+ * to color-matching: it never joins a color cluster and always detonates its
+ * own 3x3 area on placement.
  */
 export type CandyColor = 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'purple' | 'bomb';
 
@@ -29,7 +31,7 @@ export interface Piece {
    * uniform: if a whole piece were one color, every 3+ cell piece would
    * instantly self-match on an empty board, making placement strategy moot. */
   colors: CandyColor[];
-  /** Bomb Candy: a single wildcard cell that detonates a small area on placement and, once it settles, counts as every color for future clusters. Never produced by the normal RNG piece generator. */
+  /** Bomb Candy: a single cell that detonates a 3x3 area (including itself) on placement. Never produced by the normal RNG piece generator. */
   isBomb?: boolean;
 }
 

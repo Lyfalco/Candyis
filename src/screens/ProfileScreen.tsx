@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, Alert, Image, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAuth } from '../auth/AuthContext';
 import { friendlyAuthError } from '../auth/errors';
@@ -64,6 +65,7 @@ export function ProfileScreen({ bestScore, lifetimeScore, selectedThemeId, unloc
   const rank = getRankForScore(bestScore);
   const level = levelForLifetimeScore(lifetimeScore);
   const levelProgressPct = Math.round((scoreIntoLevel(lifetimeScore) / SCORE_PER_LEVEL) * 100);
+  const insets = useSafeAreaInsets();
 
   const [emailMode, setEmailMode] = useState<EmailMode>('signIn');
   const [displayName, setDisplayName] = useState('');
@@ -153,7 +155,11 @@ export function ProfileScreen({ bestScore, lifetimeScore, selectedThemeId, unloc
   };
 
   return (
-    <View style={styles.root}>
+    <ScrollView
+      style={styles.root}
+      contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 32 }]}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={styles.titleRow}>
         {onBack && (
           <Pressable onPress={onBack} style={styles.backButton}>
@@ -363,7 +369,7 @@ export function ProfileScreen({ bestScore, lifetimeScore, selectedThemeId, unloc
           {isLoading && <Text style={styles.loading}>Signing in…</Text>}
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -371,6 +377,8 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: PALETTE.background,
+  },
+  content: {
     paddingHorizontal: 24,
     paddingTop: 12,
     alignItems: 'center',
